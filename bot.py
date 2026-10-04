@@ -424,7 +424,7 @@ def main():
     app.add_handler(CallbackQueryHandler(callback_handler))
 
     print("FREE ARPIT OSINT BOT is running...")
-    app.run_polling()
+    app.run_polling(stop_signals=None)
 
 
 if __name__ == "__main__":
