@@ -48,6 +48,7 @@ LOGIN_PAGE = """
 <style>
 * {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 body {
@@ -59,8 +60,9 @@ body {
     padding: 20px;
     background: #030807;
     color: #d1fae5;
-    font-family: "Courier New", monospace;
-    overflow: hidden;
+    font-size: 19px;
+    line-height: 1.7;
+    overflow-x: hidden;
 }
 
 body::before {
@@ -87,8 +89,8 @@ body::before {
 .card {
     position: relative;
     width: 100%;
-    max-width: 390px;
-    padding: 32px 26px;
+    max-width: 430px;
+    padding: 35px 28px;
     background: rgba(5, 18, 13, .94);
     border: 1px solid #00ff8870;
     border-radius: 15px;
@@ -109,34 +111,36 @@ body::before {
 
 .logo {
     text-align: center;
-    font-size: 25px;
-    font-weight: bold;
+    font-size: 34px;
+    font-weight: 800;
     color: #00ff88;
     text-shadow: 0 0 15px #00ff88;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .subtitle {
     text-align: center;
     color: #6ee7b7;
-    font-size: 12px;
+    font-size: 17px;
     margin-top: 10px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .status {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin: 25px 0;
+    gap: 10px;
+    margin: 27px 0;
     color: #4ade80;
-    font-size: 12px;
+    font-size: 16px;
+    text-align: center;
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
     background: #00ff88;
     border-radius: 50%;
     box-shadow: 0 0 12px #00ff88;
@@ -150,20 +154,21 @@ body::before {
 label {
     display: block;
     color: #86efac;
-    font-size: 12px;
-    margin-bottom: 9px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 input {
     width: 100%;
-    padding: 15px;
+    padding: 17px;
     background: #07130e;
     border: 1px solid #166534;
     border-radius: 8px;
     color: #d1fae5;
     outline: none;
-    font-family: inherit;
-    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 19px;
 }
 
 input:focus {
@@ -171,16 +176,22 @@ input:focus {
     box-shadow: 0 0 12px #00ff8830;
 }
 
+input::placeholder {
+    color: #7b9b87;
+    opacity: 1;
+}
+
 button {
     width: 100%;
-    margin-top: 17px;
-    padding: 15px;
+    margin-top: 18px;
+    padding: 17px;
     background: #00ff88;
     color: #031108;
     border: none;
     border-radius: 8px;
-    font-family: inherit;
-    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 19px;
+    font-weight: 800;
     cursor: pointer;
     transition: .2s;
 }
@@ -195,8 +206,8 @@ button:hover {
     background: #450a0a50;
     border: 1px solid #be123c70;
     border-radius: 7px;
-    padding: 10px;
-    font-size: 12px;
+    padding: 12px;
+    font-size: 17px;
     text-align: center;
     margin-top: 15px;
 }
@@ -204,9 +215,32 @@ button:hover {
 .footer {
     text-align: center;
     color: #4b8064;
-    font-size: 10px;
-    margin-top: 25px;
-    letter-spacing: 1px;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 27px;
+    letter-spacing: .5px;
+}
+
+@media(max-width: 480px) {
+    .card {
+        padding: 28px 20px;
+    }
+
+    .logo {
+        font-size: 30px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+    }
+
+    .status {
+        font-size: 15px;
+    }
+
+    input, button {
+        font-size: 18px;
+    }
 }
 </style>
 </head>
@@ -274,20 +308,22 @@ DASHBOARD = """
 
 * {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 body {
     margin: 0;
     background: var(--bg);
     color: #d1fae5;
-    font-family: "Courier New", monospace;
+    font-size: 19px;
+    line-height: 1.7;
 }
 
 header {
     position: sticky;
     top: 0;
     z-index: 10;
-    padding: 17px 20px;
+    padding: 18px 22px;
     background: rgba(5, 17, 11, .96);
     border-bottom: 1px solid var(--border);
     display: flex;
@@ -299,17 +335,19 @@ header {
 
 .brand {
     color: var(--green);
-    font-weight: bold;
-    letter-spacing: 1px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: .5px;
     text-shadow: 0 0 12px #00ff8850;
 }
 
 .logout {
     color: var(--red);
     text-decoration: none;
-    font-size: 12px;
+    font-size: 17px;
+    font-weight: 700;
     border: 1px solid #7f1d1d;
-    padding: 9px 12px;
+    padding: 12px 16px;
     border-radius: 7px;
 }
 
@@ -317,36 +355,38 @@ main {
     width: 100%;
     max-width: 1200px;
     margin: auto;
-    padding: 22px;
+    padding: 24px;
 }
 
 .heading {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
 
 .heading h2 {
     color: var(--green);
-    font-size: 23px;
+    font-size: 30px;
+    font-weight: 800;
     margin: 0 0 9px;
 }
 
 .muted {
     color: var(--muted);
-    font-size: 12px;
+    font-size: 17px;
 }
 
 .system-status {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
     color: var(--green2);
-    font-size: 11px;
+    font-size: 16px;
     margin-top: 12px;
+    flex-wrap: wrap;
 }
 
 .dot {
-    width: 7px;
-    height: 7px;
+    width: 9px;
+    height: 9px;
     background: var(--green);
     border-radius: 50%;
     box-shadow: 0 0 10px var(--green);
@@ -355,36 +395,37 @@ main {
 .grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 13px;
-    margin-bottom: 18px;
+    gap: 14px;
+    margin-bottom: 20px;
 }
 
 .card {
     background: linear-gradient(145deg, var(--panel2), var(--panel));
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 16px;
+    padding: 20px;
+    margin-bottom: 17px;
     overflow: hidden;
     box-shadow: 0 5px 20px #00000030;
 }
 
 .stat {
     position: relative;
-    min-height: 125px;
+    min-height: 140px;
 }
 
 .stat-label {
     color: var(--muted);
-    font-size: 11px;
+    font-size: 16px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: .5px;
 }
 
 .number {
     color: var(--green);
-    font-size: 29px;
-    font-weight: bold;
+    font-size: 36px;
+    font-weight: 800;
     margin-top: 20px;
     text-shadow: 0 0 14px #00ff8840;
     overflow-wrap: anywhere;
@@ -394,27 +435,28 @@ main {
     position: absolute;
     right: 15px;
     top: 13px;
-    font-size: 23px;
+    font-size: 25px;
     opacity: .65;
 }
 
 h3 {
     color: var(--green2);
-    font-size: 15px;
-    margin: 0 0 17px;
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 18px;
 }
 
 .section-label {
     color: var(--muted);
-    font-size: 11px;
-    margin-bottom: 13px;
+    font-size: 16px;
+    margin-bottom: 14px;
 }
 
 button, input {
-    font-family: inherit;
-    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 18px;
     border-radius: 7px;
-    padding: 12px;
+    padding: 15px;
     margin: 4px 0;
 }
 
@@ -431,11 +473,16 @@ input:focus {
     box-shadow: 0 0 10px #00ff8825;
 }
 
+input::placeholder {
+    color: #7b9b87;
+    opacity: 1;
+}
+
 button {
     background: var(--green);
     color: #031108;
     border: none;
-    font-weight: bold;
+    font-weight: 800;
     cursor: pointer;
     transition: .2s;
 }
@@ -458,18 +505,18 @@ button:hover {
 .controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
 }
 
 .controls button {
     flex: 1;
-    min-width: 120px;
+    min-width: 150px;
 }
 
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr auto;
-    gap: 8px;
+    gap: 9px;
     align-items: center;
 }
 
@@ -480,31 +527,34 @@ button:hover {
 .table-wrap {
     overflow-x: auto;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
 }
 
 table {
     width: 100%;
     min-width: 550px;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: 17px;
 }
 
 th {
     color: var(--green);
     text-align: left;
     background: #0d2115;
-    font-weight: normal;
-    letter-spacing: .5px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: .3px;
 }
 
 td, th {
-    padding: 13px 11px;
+    padding: 16px 12px;
     border-bottom: 1px solid #173522;
     white-space: nowrap;
 }
 
 td {
     color: #b7d9c3;
+    font-size: 17px;
 }
 
 tr:hover td {
@@ -513,9 +563,10 @@ tr:hover td {
 
 .badge {
     display: inline-block;
-    padding: 5px 8px;
+    padding: 7px 10px;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 15px;
+    font-weight: 700;
     background: #14532d;
     color: #86efac;
 }
@@ -528,8 +579,8 @@ tr:hover td {
 footer {
     text-align: center;
     color: #456c53;
-    padding: 20px;
-    font-size: 10px;
+    padding: 22px;
+    font-size: 15px;
 }
 
 @media(max-width: 800px) {
@@ -538,9 +589,13 @@ footer {
     }
 }
 
-@media(max-width: 520px) {
+@media(max-width: 600px) {
+    body {
+        font-size: 19px;
+    }
+
     main {
-        padding: 13px;
+        padding: 14px;
     }
 
     header {
@@ -548,24 +603,45 @@ footer {
     }
 
     .brand {
-        font-size: 13px;
+        font-size: 17px;
+    }
+
+    .logout {
+        font-size: 15px;
+        padding: 10px 12px;
     }
 
     .grid {
-        gap: 9px;
+        gap: 10px;
     }
 
     .card {
-        padding: 14px;
-        margin-bottom: 12px;
+        padding: 15px;
+        margin-bottom: 13px;
     }
 
     .stat {
-        min-height: 110px;
+        min-height: 120px;
+    }
+
+    .stat-label {
+        font-size: 14px;
     }
 
     .number {
-        font-size: 24px;
+        font-size: 30px;
+    }
+
+    .heading h2 {
+        font-size: 27px;
+    }
+
+    h3 {
+        font-size: 21px;
+    }
+
+    .section-label {
+        font-size: 15px;
     }
 
     .form-row {
@@ -576,8 +652,29 @@ footer {
         width: 100%;
     }
 
-    .heading h2 {
-        font-size: 20px;
+    button, input {
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .controls button {
+        width: 100%;
+    }
+
+    table {
+        font-size: 16px;
+    }
+
+    th {
+        font-size: 17px;
+    }
+
+    td {
+        font-size: 16px;
     }
 }
 </style>
