@@ -39,55 +39,212 @@ def login_required(func):
 
 LOGIN_PAGE = """
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FREE ARPIT - Admin Login</title>
+<title>FREE ARPIT | Secure Access</title>
+
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background:#0f172a;
-    color:white;
-    font-family:Arial,sans-serif;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:100vh;
-    margin:0;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #030807;
+    color: #d1fae5;
+    font-family: "Courier New", monospace;
+    overflow: hidden;
 }
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        linear-gradient(rgba(0,255,120,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,120,.035) 1px, transparent 1px);
+    background-size: 35px 35px;
+    pointer-events: none;
+}
+
+.glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: #00ff8840;
+    filter: blur(120px);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
 .card {
-    background:#1e293b;
-    padding:30px;
-    border-radius:16px;
-    width:85%;
-    max-width:350px;
+    position: relative;
+    width: 100%;
+    max-width: 390px;
+    padding: 32px 26px;
+    background: rgba(5, 18, 13, .94);
+    border: 1px solid #00ff8870;
+    border-radius: 15px;
+    box-shadow: 0 0 35px #00ff881c;
+    animation: appear .7s ease;
 }
-input,button {
-    width:100%;
-    padding:13px;
-    margin-top:12px;
-    border-radius:8px;
-    border:0;
-    box-sizing:border-box;
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
+.logo {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: #00ff88;
+    text-shadow: 0 0 15px #00ff88;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #6ee7b7;
+    font-size: 12px;
+    margin-top: 10px;
+    letter-spacing: 2px;
+}
+
+.status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 25px 0;
+    color: #4ade80;
+    font-size: 12px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #00ff88;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: .3; }
+}
+
+label {
+    display: block;
+    color: #86efac;
+    font-size: 12px;
+    margin-bottom: 9px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    background: #07130e;
+    border: 1px solid #166534;
+    border-radius: 8px;
+    color: #d1fae5;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #00ff88;
+    box-shadow: 0 0 12px #00ff8830;
+}
+
 button {
-    background:#2563eb;
-    color:white;
-    font-weight:bold;
+    width: 100%;
+    margin-top: 17px;
+    padding: 15px;
+    background: #00ff88;
+    color: #031108;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button:hover {
+    background: #86efac;
+    box-shadow: 0 0 20px #00ff8860;
+}
+
+.error {
+    color: #fb7185;
+    background: #450a0a50;
+    border: 1px solid #be123c70;
+    border-radius: 7px;
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.footer {
+    text-align: center;
+    color: #4b8064;
+    font-size: 10px;
+    margin-top: 25px;
+    letter-spacing: 1px;
 }
 </style>
 </head>
+
 <body>
+<div class="glow"></div>
+
 <div class="card">
-<h2>🔐 FREE ARPIT</h2>
-<p>Admin Dashboard Login</p>
-<form method="POST">
-<input type="password" name="password"
-placeholder="Admin Password" required>
-<button type="submit">Login</button>
-</form>
-{% if error %}
-<p style="color:#f87171">{{ error }}</p>
-{% endif %}
+    <div class="logo">FREE ARPIT</div>
+    <div class="subtitle">OSINT CONTROL SYSTEM</div>
+
+    <div class="status">
+        <span class="dot"></span>
+        SECURE CONNECTION READY
+    </div>
+
+    <form method="POST">
+        <label>ADMIN AUTHENTICATION</label>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Enter access password"
+            autocomplete="current-password"
+            required
+        >
+
+        <button type="submit">ACCESS DASHBOARD →</button>
+    </form>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <div class="footer">
+        AUTHORIZED ACCESS ONLY<br>
+        FREE ARPIT SECURITY SYSTEM
+    </div>
 </div>
 </body>
 </html>
@@ -96,261 +253,635 @@ placeholder="Admin Password" required>
 
 DASHBOARD = """
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FREE ARPIT Dashboard</title>
+
+<title>FREE ARPIT | Control Panel</title>
+
 <style>
-* {box-sizing:border-box}
+:root {
+    --bg: #030807;
+    --panel: #08130e;
+    --panel2: #0b1b12;
+    --green: #00ff88;
+    --green2: #4ade80;
+    --muted: #7b9b87;
+    --border: #16452c;
+    --red: #fb7185;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    margin:0;
-    background:#0f172a;
-    color:#f8fafc;
-    font-family:Arial,sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: #d1fae5;
+    font-family: "Courier New", monospace;
 }
+
 header {
-    padding:20px;
-    background:#1e293b;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 17px 20px;
+    background: rgba(5, 17, 11, .96);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(12px);
 }
-header a {color:#f87171;text-decoration:none}
-main {padding:18px;max-width:1100px;margin:auto}
+
+.brand {
+    color: var(--green);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 12px #00ff8850;
+}
+
+.logout {
+    color: var(--red);
+    text-decoration: none;
+    font-size: 12px;
+    border: 1px solid #7f1d1d;
+    padding: 9px 12px;
+    border-radius: 7px;
+}
+
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 22px;
+}
+
+.heading {
+    margin-bottom: 22px;
+}
+
+.heading h2 {
+    color: var(--green);
+    font-size: 23px;
+    margin: 0 0 9px;
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.system-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--green2);
+    font-size: 11px;
+    margin-top: 12px;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
+}
+
 .grid {
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+    margin-bottom: 18px;
 }
+
 .card {
-    background:#1e293b;
-    padding:18px;
-    border-radius:12px;
-    margin-bottom:15px;
-    overflow-wrap:anywhere;
+    background: linear-gradient(145deg, var(--panel2), var(--panel));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px #00000030;
 }
-.number {font-size:27px;font-weight:bold;margin-top:10px}
-.muted {color:#94a3b8;font-size:13px}
-button,input {
-    padding:11px;
-    border-radius:7px;
-    border:0;
-    margin:4px 0;
+
+.stat {
+    position: relative;
+    min-height: 125px;
 }
-button {background:#2563eb;color:white;cursor:pointer}
-input {max-width:100%;width:100%;background:#334155;color:white}
-.danger {background:#dc2626}
-.success {background:#15803d}
-table {width:100%;border-collapse:collapse;font-size:13px}
-td,th {padding:10px;border-bottom:1px solid #334155;text-align:left}
-.table-wrap {overflow-x:auto}
-@media(max-width:480px) {
-    main {padding:12px}
-    .card {padding:14px}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.number {
+    color: var(--green);
+    font-size: 29px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-shadow: 0 0 14px #00ff8840;
+    overflow-wrap: anywhere;
+}
+
+.stat-icon {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    font-size: 23px;
+    opacity: .65;
+}
+
+h3 {
+    color: var(--green2);
+    font-size: 15px;
+    margin: 0 0 17px;
+}
+
+.section-label {
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 13px;
+}
+
+button, input {
+    font-family: inherit;
+    font-size: 13px;
+    border-radius: 7px;
+    padding: 12px;
+    margin: 4px 0;
+}
+
+input {
+    width: 100%;
+    background: #041009;
+    color: #d1fae5;
+    border: 1px solid #22543d;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 10px #00ff8825;
+}
+
+button {
+    background: var(--green);
+    color: #031108;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button:hover {
+    filter: brightness(1.15);
+    box-shadow: 0 0 13px #00ff8830;
+}
+
+.success {
+    background: #166534;
+    color: white;
+}
+
+.danger {
+    background: #9f1239;
+    color: white;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.controls button {
+    flex: 1;
+    min-width: 120px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.form-row button {
+    white-space: nowrap;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    min-width: 550px;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+th {
+    color: var(--green);
+    text-align: left;
+    background: #0d2115;
+    font-weight: normal;
+    letter-spacing: .5px;
+}
+
+td, th {
+    padding: 13px 11px;
+    border-bottom: 1px solid #173522;
+    white-space: nowrap;
+}
+
+td {
+    color: #b7d9c3;
+}
+
+tr:hover td {
+    background: #0c1e13;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 10px;
+    background: #14532d;
+    color: #86efac;
+}
+
+.badge.blocked {
+    background: #4c0519;
+    color: #fda4af;
+}
+
+footer {
+    text-align: center;
+    color: #456c53;
+    padding: 20px;
+    font-size: 10px;
+}
+
+@media(max-width: 800px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media(max-width: 520px) {
+    main {
+        padding: 13px;
+    }
+
+    header {
+        padding: 14px;
+    }
+
+    .brand {
+        font-size: 13px;
+    }
+
+    .grid {
+        gap: 9px;
+    }
+
+    .card {
+        padding: 14px;
+        margin-bottom: 12px;
+    }
+
+    .stat {
+        min-height: 110px;
+    }
+
+    .number {
+        font-size: 24px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row button {
+        width: 100%;
+    }
+
+    .heading h2 {
+        font-size: 20px;
+    }
 }
 </style>
 </head>
+
 <body>
+
 <header>
-<strong>🛡️ FREE ARPIT</strong>
-<a href="/logout">Logout</a>
+    <div class="brand">☠ FREE ARPIT // OSINT</div>
+    <a class="logout" href="/logout">LOGOUT ↗</a>
 </header>
 
 <main>
-<h2>Admin Dashboard</h2>
-<p class="muted">Bot management and analytics</p>
 
-<div class="grid">
-<div class="card">
-<div class="muted">Total Users</div>
-<div class="number" id="users">0</div>
-</div>
-<div class="card">
-<div class="muted">Total Searches</div>
-<div class="number" id="searches">0</div>
-</div>
-<div class="card">
-<div class="muted">Blocked Users</div>
-<div class="number" id="blocked">0</div>
-</div>
-<div class="card">
-<div class="muted">Available Credits</div>
-<div class="number" id="credits">0</div>
-</div>
-</div>
+    <div class="heading">
+        <h2>CONTROL CENTER</h2>
+        <div class="muted">Bot management and system analytics</div>
 
-<div class="card">
-<h3>⚙️ Bot Settings</h3>
-<p>Maintenance mode:
-<strong id="maintenance">Loading</strong></p>
-<button onclick="setMaintenance(true)">Enable</button>
-<button class="success" onclick="setMaintenance(false)">Disable</button>
-</div>
+        <div class="system-status">
+            <span class="dot"></span>
+            SYSTEM CONNECTED
+            <span id="lastUpdate"></span>
+        </div>
+    </div>
 
-<div class="card">
-<h3>💳 Manage Credits</h3>
-<input id="creditUser" placeholder="Telegram User ID">
-<input id="creditAmount" type="number" min="1" placeholder="Credits to add">
-<button onclick="addCredits()">Add Credits</button>
-</div>
+    <div class="grid">
 
-<div class="card">
-<h3>👥 User Management</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>User ID</th>
-<th>Username</th>
-<th>Credits</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="userRows"></tbody>
-</table>
-</div>
-</div>
+        <div class="card stat">
+            <div class="stat-icon">👥</div>
+            <div class="stat-label">Total Users</div>
+            <div class="number" id="users">0</div>
+        </div>
 
-<div class="card">
-<h3>📊 Recent Searches</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>User</th>
-<th>Type</th>
-<th>Query</th>
-<th>Date</th>
-</tr>
-</thead>
-<tbody id="searchRows"></tbody>
-</table>
-</div>
-</div>
+        <div class="card stat">
+            <div class="stat-icon">⌕</div>
+            <div class="stat-label">Total Searches</div>
+            <div class="number" id="searches">0</div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">⛔</div>
+            <div class="stat-label">Blocked Users</div>
+            <div class="number" id="blocked">0</div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">◈</div>
+            <div class="stat-label">Available Credits</div>
+            <div class="number" id="credits">0</div>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <h3>⚙ SYSTEM CONFIGURATION</h3>
+
+        <div class="section-label">
+            MAINTENANCE MODE:
+            <strong id="maintenance">LOADING...</strong>
+        </div>
+
+        <div class="controls">
+            <button onclick="setMaintenance(true)">
+                ENABLE MAINTENANCE
+            </button>
+
+            <button class="success" onclick="setMaintenance(false)">
+                DISABLE MAINTENANCE
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>◈ CREDIT MANAGEMENT</h3>
+
+        <div class="form-row">
+            <input
+                id="creditUser"
+                inputmode="numeric"
+                placeholder="Telegram User ID"
+            >
+
+            <input
+                id="creditAmount"
+                type="number"
+                min="1"
+                max="100000"
+                placeholder="Credits amount"
+            >
+
+            <button onclick="addCredits()">ADD CREDITS</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>👥 USER DATABASE</h3>
+        <div class="section-label">REGISTERED USERS AND ACCOUNT STATUS</div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>USER ID</th>
+                        <th>USERNAME</th>
+                        <th>CREDITS</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="userRows"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>⌕ RECENT SEARCH ACTIVITY</h3>
+        <div class="section-label">LATEST 20 SEARCH RECORDS</div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>USER</th>
+                        <th>TYPE</th>
+                        <th>QUERY</th>
+                        <th>DATE</th>
+                    </tr>
+                </thead>
+                <tbody id="searchRows"></tbody>
+            </table>
+        </div>
+    </div>
+
 </main>
 
+<footer>
+    FREE ARPIT OSINT BOT // SECURE ADMIN PANEL
+</footer>
+
 <script>
-async function api(url, options={}) {
+async function api(url, options = {}) {
     const response = await fetch(url, options);
+
     if (response.status === 401) {
         location.href = "/login";
         return {};
     }
+
     return response.json();
 }
 
+
 async function loadDashboard() {
-    const data = await api("/api/dashboard");
+    try {
+        const data = await api("/api/dashboard");
 
-    if (!data.stats) return;
+        if (!data.stats) return;
 
-    document.getElementById("users").textContent =
-        data.stats.total_users;
-    document.getElementById("searches").textContent =
-        data.stats.total_searches;
-    document.getElementById("blocked").textContent =
-        data.stats.blocked_users;
-    document.getElementById("credits").textContent =
-        data.stats.total_credits;
+        document.getElementById("users").textContent =
+            data.stats.total_users;
 
-    document.getElementById("maintenance").textContent =
-        data.maintenance ? "ON" : "OFF";
+        document.getElementById("searches").textContent =
+            data.stats.total_searches;
 
-    const rows = document.getElementById("userRows");
-    rows.replaceChildren();
+        document.getElementById("blocked").textContent =
+            data.stats.blocked_users;
 
-    data.users.forEach(user => {
-        const tr = document.createElement("tr");
+        document.getElementById("credits").textContent =
+            data.stats.total_credits;
 
-        const values = [
-            user.user_id,
-            user.username || "N/A",
-            user.credits,
-            user.is_blocked ? "Blocked" : "Active"
-        ];
+        document.getElementById("maintenance").textContent =
+            data.maintenance ? "ON" : "OFF";
 
-        values.forEach(value => {
-            const td = document.createElement("td");
-            td.textContent = value;
-            tr.appendChild(td);
+        document.getElementById("lastUpdate").textContent =
+            " | UPDATED " + new Date().toLocaleTimeString();
+
+        const rows = document.getElementById("userRows");
+        rows.replaceChildren();
+
+        data.users.forEach(user => {
+            const tr = document.createElement("tr");
+
+            const values = [
+                user.user_id,
+                user.username || "N/A",
+                user.credits
+            ];
+
+            values.forEach(value => {
+                const td = document.createElement("td");
+                td.textContent = value;
+                tr.appendChild(td);
+            });
+
+            const status = document.createElement("td");
+            const badge = document.createElement("span");
+
+            badge.className = user.is_blocked
+                ? "badge blocked"
+                : "badge";
+
+            badge.textContent = user.is_blocked
+                ? "BLOCKED"
+                : "ACTIVE";
+
+            status.appendChild(badge);
+            tr.appendChild(status);
+
+            const action = document.createElement("td");
+            const button = document.createElement("button");
+
+            button.textContent = user.is_blocked
+                ? "UNBLOCK"
+                : "BLOCK";
+
+            button.className = user.is_blocked
+                ? "success"
+                : "danger";
+
+            button.onclick = () => toggleBlock(
+                user.user_id,
+                !user.is_blocked
+            );
+
+            action.appendChild(button);
+            tr.appendChild(action);
+            rows.appendChild(tr);
         });
 
-        const action = document.createElement("td");
-        const button = document.createElement("button");
+        const searchRows = document.getElementById("searchRows");
+        searchRows.replaceChildren();
 
-        button.textContent = user.is_blocked ? "Unblock" : "Block";
-        button.className = user.is_blocked ? "success" : "danger";
-        button.onclick = () => toggleBlock(
-            user.user_id,
-            !user.is_blocked
-        );
+        data.searches.forEach(item => {
+            const tr = document.createElement("tr");
 
-        action.appendChild(button);
-        tr.appendChild(action);
-        rows.appendChild(tr);
-    });
+            [
+                item.user_id,
+                item.search_type,
+                item.query,
+                item.created_at
+            ].forEach(value => {
+                const td = document.createElement("td");
+                td.textContent = value ?? "N/A";
+                tr.appendChild(td);
+            });
 
-    const searchRows = document.getElementById("searchRows");
-    searchRows.replaceChildren();
-
-    data.searches.forEach(item => {
-        const tr = document.createElement("tr");
-
-        [
-            item.user_id,
-            item.search_type,
-            item.query,
-            item.created_at
-        ].forEach(value => {
-            const td = document.createElement("td");
-            td.textContent = value;
-            tr.appendChild(td);
+            searchRows.appendChild(tr);
         });
 
-        searchRows.appendChild(tr);
-    });
+    } catch (error) {
+        console.error("Dashboard refresh failed:", error);
+    }
 }
+
 
 async function addCredits() {
-    const user_id = document.getElementById("creditUser").value;
-    const amount = document.getElementById("creditAmount").value;
+    const user_id =
+        document.getElementById("creditUser").value;
+
+    const amount =
+        document.getElementById("creditAmount").value;
 
     const result = await api("/api/credits", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({user_id, amount})
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({user_id, amount})
     });
 
-    alert(result.message || result.error);
+    alert(result.message || result.error || "Request failed");
+
     loadDashboard();
 }
+
 
 async function toggleBlock(user_id, blocked) {
     const result = await api("/api/block", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({user_id, blocked})
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({user_id, blocked})
     });
 
-    alert(result.message || result.error);
+    alert(result.message || result.error || "Request failed");
+
     loadDashboard();
 }
+
 
 async function setMaintenance(enabled) {
     const result = await api("/api/maintenance", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({enabled})
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({enabled})
     });
 
-    alert(result.message || result.error);
+    alert(result.message || result.error || "Request failed");
+
     loadDashboard();
 }
+
 
 loadDashboard();
 setInterval(loadDashboard, 15000);
 </script>
+
 </body>
 </html>
 """
@@ -439,14 +970,18 @@ def credits_api():
             raise ValueError
 
     except (ValueError, TypeError):
-        return jsonify({"error": "Invalid user ID or amount"}), 400
+        return jsonify({
+            "error": "Invalid user ID or amount"
+        }), 400
 
     if not db.get_user(user_id):
         return jsonify({"error": "User not found"}), 404
 
     db.add_credits(user_id, amount)
 
-    return jsonify({"message": "Credits added successfully"})
+    return jsonify({
+        "message": "Credits added successfully"
+    })
 
 
 @app.route("/api/block", methods=["POST"])
@@ -465,7 +1000,9 @@ def block_api():
         return jsonify({"error": "Invalid status"}), 400
 
     if user_id == int(os.environ["ADMIN_ID"]):
-        return jsonify({"error": "Cannot block primary admin"}), 400
+        return jsonify({
+            "error": "Cannot block primary admin"
+        }), 400
 
     if not db.get_user(user_id):
         return jsonify({"error": "User not found"}), 404
